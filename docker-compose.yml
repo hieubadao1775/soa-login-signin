@@ -1,0 +1,102 @@
+services:
+  rabbitmq:
+    image: rabbitmq:3.13-management
+    container_name: smart-rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+  account:
+    image: python:3.11-slim
+    container_name: smart-account
+    working_dir: /app
+    environment:
+      PYTHONPATH: /app
+      RABBITMQ_URL: amqp://guest:guest@rabbitmq:5672/
+    command: sh -c "pip install -r backend/account/requirements.txt && python backend/account/app.py"
+    volumes:
+      - ./:/app
+    ports:
+      - "5001:5001"
+    depends_on:
+      - rabbitmq
+
+  job:
+    image: python:3.11-slim
+    container_name: smart-job
+    working_dir: /app
+    environment:
+      PYTHONPATH: /app
+      RABBITMQ_URL: amqp://guest:guest@rabbitmq:5672/
+      INTEGRATION_SERVICE_URL: http://integration:5003
+    command: sh -c "pip install -r backend/job/requirements.txt && python backend/job/app.py"
+    volumes:
+      - ./:/app
+    ports:
+      - "5002:5002"
+    depends_on:
+      - rabbitmq
+      - integration
+
+  integration:
+    image: python:3.11-slim
+    container_name: smart-integration
+    working_dir: /app
+    environment:
+      PYTHONPATH: /app
+      RABBITMQ_URL: amqp://guest:guest@rabbitmq:5672/
+      LINKEDIN_CLIENT_ID: ${LINKEDIN_CLIENT_ID:-}
+      LINKEDIN_CLIENT_SECRET: ${LINKEDIN_CLIENT_SECRET:-}
+      LINKEDIN_REDIRECT_URI: ${LINKEDIN_REDIRECT_URI:-http://localhost:5003/api/integrations/linkedin/callback}
+      LINKEDIN_FRONTEND_CALLBACK_URI: ${LINKEDIN_FRONTEND_CALLBACK_URI:-http://localhost:5004/oauth/linkedin/callback}
+      LINKEDIN_SCOPE: ${LINKEDIN_SCOPE:-r_liteprofile r_emailaddress}
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET:-}
+      GOOGLE_REDIRECT_URI: ${GOOGLE_REDIRECT_URI:-http://localhost:5003/api/integrations/google/callback}
+      GOOGLE_FRONTEND_CALLBACK_URI: ${GOOGLE_FRONTEND_CALLBACK_URI:-http://localhost:5004/oauth/google/callback}
+      GOOGLE_SCOPE: ${GOOGLE_SCOPE:-openid email profile}
+      GMAIL_API_BASE: ${GMAIL_API_BASE:-https://gmail.googleapis.com/gmail/v1}
+      CALENDAR_API_BASE: ${CALENDAR_API_BASE:-https://www.googleapis.com/calendar/v3}
+      AI_API_URL: ${AI_API_URL:-}
+      AI_POTENTIAL_CANDIDATES_URL: ${AI_POTENTIAL_CANDIDATES_URL:-}
+      AI_API_KEY: ${AI_API_KEY:-}
+      AI_TIMEOUT_SECONDS: ${AI_TIMEOUT_SECONDS:-12}
+    command: sh -c "pip install -r backend/integration/requirements.txt && python backend/integration/app.py"
+    volumes:
+      - ./:/app
+    ports:
+      - "5003:5003"
+    depends_on:
+      - rabbitmq
+
+  gateway:
+    image: python:3.11-slim
+    container_name: smart-gateway
+    working_dir: /app
+    environment:
+      ACCOUNT_SERVICE_URL: http://account:5001
+      JOB_SERVICE_URL: http://job:5002
+      INTEGRATION_SERVICE_URL: http://integration:5003
+      FRONTEND_URL: http://localhost:5004
+    command: sh -c "pip install -r backend/gateway/requirements.txt && python backend/gateway/app.py"
+    volumes:
+      - ./:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - account
+      - job
+      - integration
+      - frontend
+
+  frontend:
+    image: python:3.11-slim
+    container_name: smart-frontend
+    working_dir: /app
+    environment:
+      API_BASE_URL: http://localhost:8000
+    command: sh -c "pip install -r frontend/requirements.txt && python frontend/app.py"
+    volumes:
+      - ./:/app
+    ports:
+      - "5004:5004"

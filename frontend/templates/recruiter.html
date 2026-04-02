@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="panel two-col">
+    <div>
+        <h1>HR Dashboard</h1>
+        <p class="hint">Quản lý công ty, đăng tin tuyển dụng, nhận CV ứng viên và xử lý pipeline tuyển dụng.</p>
+
+        <h2>Company profile</h2>
+        <form id="create-company-form" class="stack-form">
+            <label>Tên công ty
+                <input type="text" name="name" required>
+            </label>
+            <label>Mô tả
+                <textarea name="description" rows="3"></textarea>
+            </label>
+            <label>Website
+                <input type="url" name="website">
+            </label>
+            <button type="submit" class="primary-btn">Lưu company</button>
+        </form>
+
+        <h2>Đăng job</h2>
+        <form id="create-job-form" class="stack-form">
+            <label>Tiêu đề
+                <input type="text" name="title" required>
+            </label>
+            <label>Mô tả công việc
+                <textarea name="description" rows="4" required></textarea>
+            </label>
+            <label>Yêu cầu
+                <textarea name="requirements" rows="3"></textarea>
+            </label>
+            <label>Địa điểm
+                <input type="text" name="location" required>
+            </label>
+            <label>Loại hình
+                <input type="text" name="job_type" placeholder="full-time" required>
+            </label>
+            <label>Cấp bậc
+                <input type="text" name="experience_level" placeholder="Junior/Mid/Senior" required>
+            </label>
+            <label>Lương tối thiểu
+                <input type="number" name="salary_min">
+            </label>
+            <label>Lương tối đa
+                <input type="number" name="salary_max">
+            </label>
+            <button type="submit" class="primary-btn">Đăng tin</button>
+        </form>
+    </div>
+
+    <div>
+        <h2>Tổng quan tuyển dụng</h2>
+        <div id="recruiter-dashboard-summary" class="stack-list">
+            <div class="stack-item">Đang tải thống kê...</div>
+        </div>
+
+        <h2>Lên lịch phỏng vấn</h2>
+        <form id="schedule-interview-form" class="stack-form">
+            <label>Application ID
+                <input type="number" name="application_id" required>
+            </label>
+            <label>Start time (ISO)
+                <input type="text" name="start_time" placeholder="2026-04-01T09:00:00" required>
+            </label>
+            <label>End time (ISO)
+                <input type="text" name="end_time" placeholder="2026-04-01T10:00:00" required>
+            </label>
+            <label>Meeting link (tuỳ chọn)
+                <input type="text" name="meeting_link" placeholder="https://meet.google.com/...">
+            </label>
+            <button type="submit" class="primary-btn">Tạo lịch hẹn phỏng vấn</button>
+        </form>
+    </div>
+</section>
+
+<section class="panel">
+    <div class="panel-header">
+        <h2>ATS Pipeline và quản lý hồ sơ</h2>
+        <button id="load-recruiter-applications-btn" class="ghost-btn" type="button">Làm mới hồ sơ</button>
+    </div>
+
+    <form id="recruiter-app-filter-form" class="grid-form recruiter-filter-grid">
+        <label>Job ID
+            <input type="number" name="job_id" placeholder="Ví dụ: 12">
+        </label>
+        <label>Trạng thái
+            <select name="status">
+                <option value="">Tất cả trạng thái</option>
+                <option value="applied">Applied</option>
+                <option value="reviewing">Reviewing</option>
+                <option value="shortlisted">Shortlisted</option>
+                <option value="interview_scheduled">Interview Scheduled</option>
+                <option value="offer_sent">Offer Sent</option>
+                <option value="hired">Hired</option>
+                <option value="rejected">Rejected</option>
+                <option value="withdrawn">Withdrawn</option>
+                <option value="on_hold">On Hold</option>
+            </select>
+        </label>
+        <label>Sắp xếp
+            <select name="sort">
+                <option value="created_at_desc">Mới nhất</option>
+                <option value="created_at_asc">Cũ nhất</option>
+            </select>
+        </label>
+        <button type="submit" class="primary-btn">Áp dụng bộ lọc</button>
+    </form>
+
+    <p id="recruiter-pagination-summary" class="hint"></p>
+
+    <div class="pipeline-inline">
+        <label>Job ID xem pipeline
+            <input id="pipeline-job-id" type="number" placeholder="Nhập Job ID để xem trạng thái pipeline">
+        </label>
+        <button id="load-pipeline-btn" type="button" class="ghost-btn">Xem số lượng theo trạng thái</button>
+    </div>
+
+    <div id="pipeline-counts" class="status-grid">
+        <div class="stack-item">Nhập Job ID và bấm nút để xem số lượng hồ sơ theo từng trạng thái.</div>
+    </div>
+
+    <div class="ats-layout">
+        <div>
+            <h3>Danh sách hồ sơ ứng tuyển</h3>
+            <div id="recruiter-applications-container" class="stack-list">
+                <div class="stack-item">Bấm "Làm mới hồ sơ" để tải danh sách ứng viên.</div>
+            </div>
+        </div>
+
+        <div>
+            <h3>Timeline xử lý hồ sơ</h3>
+            <div id="recruiter-activity-output" class="stack-list">
+                <div class="stack-item">Chọn "Xem timeline" trên một hồ sơ để hiển thị lịch sử trạng thái.</div>
+            </div>
+
+            <h3>Notes tuyển dụng</h3>
+            <div id="recruiter-notes-output" class="stack-list">
+                <div class="stack-item">Notes của từng hồ sơ sẽ được hiển thị ở đây.</div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

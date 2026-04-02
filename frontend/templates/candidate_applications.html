@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="panel two-col">
+    <div>
+        <h1>Đơn ứng tuyển của tôi</h1>
+        <p class="hint">Theo dõi trạng thái từng hồ sơ ứng tuyển, kiểm tra lịch phỏng vấn và rút hồ sơ khi cần.</p>
+
+        <div class="inline-actions">
+            <label>Lọc theo trạng thái
+                <select id="candidate-status-filter">
+                    <option value="">Tất cả trạng thái</option>
+                    <option value="applied">Applied</option>
+                    <option value="reviewing">Reviewing</option>
+                    <option value="shortlisted">Shortlisted</option>
+                    <option value="interview_scheduled">Interview Scheduled</option>
+                    <option value="offer_sent">Offer Sent</option>
+                    <option value="hired">Hired</option>
+                    <option value="rejected">Rejected</option>
+                    <option value="withdrawn">Withdrawn</option>
+                    <option value="on_hold">On Hold</option>
+                </select>
+            </label>
+            <button id="load-applications-btn" class="ghost-btn" type="button">Tải danh sách</button>
+        </div>
+
+        <div id="applications-container" class="stack-list"></div>
+    </div>
+
+    <div>
+        <h2>Timeline ứng tuyển</h2>
+        <div id="candidate-timeline-output" class="stack-list">
+            <div class="stack-item">Chọn một hồ sơ để xem chi tiết lịch sử trạng thái và lịch phỏng vấn.</div>
+        </div>
+    </div>
+</section>
+{% endblock %}

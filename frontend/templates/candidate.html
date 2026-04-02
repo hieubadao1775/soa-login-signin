@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="panel profile-layout">
+    <div>
+        <h1>Hồ sơ ứng viên</h1>
+        <p class="hint">Cập nhật thủ công thông tin cá nhân để nhà tuyển dụng đánh giá nhanh và chính xác hơn.</p>
+
+        <div id="candidate-profile-readonly" class="profile-meta-grid">
+            <article class="stack-item">
+                <h3>Email đăng nhập</h3>
+                <p id="profile-email" class="job-meta">Đang tải...</p>
+            </article>
+            <article class="stack-item">
+                <h3>Vai trò</h3>
+                <p id="profile-role" class="job-meta">Ứng viên</p>
+            </article>
+            <article class="stack-item">
+                <h3>Cập nhật gần nhất</h3>
+                <p id="profile-updated-at" class="job-meta">Chưa cập nhật</p>
+            </article>
+            <article class="stack-item">
+                <h3>Liên kết social</h3>
+                <p id="profile-social-links" class="job-meta">Đang tải...</p>
+            </article>
+        </div>
+    </div>
+
+    <div>
+        <form id="candidate-profile-form" class="stack-form">
+            <label>Họ và tên
+                <input id="profile-full-name" type="text" name="full_name" maxlength="255" required>
+            </label>
+
+            <label>Số điện thoại
+                <input id="profile-phone" type="text" name="phone" placeholder="Ví dụ: +84 912 345 678">
+            </label>
+
+            <label>Địa chỉ
+                <input id="profile-address" type="text" name="address" maxlength="255" placeholder="Quận/Huyện - Tỉnh/Thành phố">
+            </label>
+
+            <label>Ngày sinh
+                <input id="profile-date-of-birth" type="date" name="date_of_birth">
+            </label>
+
+            <label>Giới thiệu bản thân
+                <textarea id="profile-bio" name="bio" rows="6" maxlength="2000" placeholder="Viết ngắn gọn về thế mạnh, định hướng nghề nghiệp và mục tiêu của bạn"></textarea>
+            </label>
+
+            <div class="inline-actions">
+                <button id="profile-save-btn" type="submit" class="primary-btn">Lưu hồ sơ</button>
+                <a href="/candidate/applications" class="ghost-btn">Xem đơn ứng tuyển</a>
+            </div>
+        </form>
+    </div>
+</section>
+
+<section class="panel two-col">
+    <div>
+        <h2>CV Workspace</h2>
+        <p class="hint">Tạo CV bằng builder hoặc tải file CV lên để tái sử dụng mỗi lần ứng tuyển.</p>
+
+        <form id="candidate-cv-form" class="stack-form" enctype="multipart/form-data">
+            <label>Tiêu đề CV
+                <input id="cv-title" type="text" name="title" placeholder="Ví dụ: Backend Python CV - 2026">
+            </label>
+
+            <label>Tải file CV (tuỳ chọn)
+                <input id="cv-file" type="file" name="cv_file" accept=".pdf,.doc,.docx">
+            </label>
+
+            <label>Tóm tắt CV nhanh (tuỳ chọn)
+                <textarea id="cv-resume-text" name="resume_text" rows="4" placeholder="Tóm tắt nhanh điểm mạnh và kinh nghiệm chính"></textarea>
+            </label>
+
+            <label>Kỹ năng (cách nhau bởi dấu phẩy)
+                <input id="cv-builder-skills" type="text" placeholder="Python, Flask, SQL, RabbitMQ">
+            </label>
+
+            <label>Kinh nghiệm
+                <textarea id="cv-builder-experience" rows="4" placeholder="Liệt kê kinh nghiệm làm việc chính"></textarea>
+            </label>
+
+            <label>Học vấn
+                <textarea id="cv-builder-education" rows="3" placeholder="Trường, chuyên ngành, thời gian"></textarea>
+            </label>
+
+            <label>Dự án nổi bật
+                <textarea id="cv-builder-projects" rows="3" placeholder="Dự án, vai trò, kết quả"></textarea>
+            </label>
+
+            <label class="check-row">
+                <input id="cv-is-default" type="checkbox" name="is_default">
+                <span>Đặt làm CV mặc định khi ứng tuyển</span>
+            </label>
+
+            <button type="submit" class="primary-btn">Lưu CV</button>
+        </form>
+    </div>
+
+    <div>
+        <h2>CV đã lưu</h2>
+        <div id="candidate-cv-list" class="stack-list">
+            <div class="stack-item">Chưa có CV nào. Hãy tạo hoặc tải CV ở cột bên trái.</div>
+        </div>
+
+        <h2>Việc đã lưu</h2>
+        <button id="load-saved-jobs-btn" class="ghost-btn" type="button">Tải việc đã lưu</button>
+        <div id="candidate-saved-jobs" class="stack-list" style="margin-top: 10px;">
+            <div class="stack-item">Bạn chưa lưu việc nào.</div>
+        </div>
+    </div>
+</section>
+{% endblock %}

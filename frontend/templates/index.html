@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero-panel">
+    <div>
+        <p class="eyebrow">Nền tảng tuyển dụng và nhân sự thông minh</p>
+        <h1>Tìm đúng người, đúng việc, đúng thời điểm</h1>
+        <p class="subtitle">Tìm kiếm job theo vị trí, địa điểm, cấp bậc, loại hình và mức lương chỉ trong một giao diện.</p>
+    </div>
+</section>
+
+<section class="panel">
+    <h2>Khám phá việc làm</h2>
+    <form id="job-search-form" class="grid-form">
+        <input type="text" name="q" placeholder="Tìm theo tiêu đề hoặc mô tả công việc">
+        <input type="text" name="location" placeholder="Địa điểm, ví dụ: Hà Nội">
+        <select name="job_type">
+            <option value="">Tất cả loại hình</option>
+            <option value="full-time">Full-time</option>
+            <option value="part-time">Part-time</option>
+            <option value="contract">Contract</option>
+            <option value="freelance">Freelance</option>
+        </select>
+        <select name="experience_level">
+            <option value="">Tất cả cấp bậc</option>
+            <option value="Junior">Junior</option>
+            <option value="Mid">Mid</option>
+            <option value="Senior">Senior</option>
+        </select>
+        <button type="submit" class="primary-btn">Tìm kiếm</button>
+    </form>
+</section>
+
+<section class="panel">
+    <div class="panel-header">
+        <h2>Danh sách job đang tuyển</h2>
+        <button id="refresh-jobs-btn" class="ghost-btn" type="button">Làm mới</button>
+    </div>
+    <div id="jobs-container" class="job-grid"></div>
+</section>
+{% endblock %}

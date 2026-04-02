@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="panel auth-panel">
+    <h1>Chào mừng bạn đã quay trở lại</h1>
+    <p class="auth-subtitle">Đăng nhập bằng email hoặc chọn đăng nhập nhanh bằng Gmail hoặc LinkedIn.</p>
+
+    <form id="login-form" class="stack-form">
+        <label>Email
+            <input type="email" name="email" required>
+        </label>
+        <label>Mật khẩu
+            <input type="password" name="password" required>
+        </label>
+        <div class="auth-inline">
+            <a href="#" id="forgot-password-link">Quên mật khẩu</a>
+        </div>
+        <button type="submit" class="primary-btn">Đăng nhập</button>
+    </form>
+
+    <div class="auth-divider"><span>Hoặc đăng nhập bằng</span></div>
+    <div class="social-grid">
+        <button type="button" class="social-btn social-google" data-social-provider="google" data-social-mode="login">Google (Gmail)</button>
+        <button type="button" class="social-btn social-linkedin" data-social-provider="linkedin" data-social-mode="login">LinkedIn</button>
+    </div>
+
+    <p class="auth-footer">Bạn chưa có tài khoản? <a href="/register">Đăng ký ngay</a></p>
+</section>
+{% endblock %}

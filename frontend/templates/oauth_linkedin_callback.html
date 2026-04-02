@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="panel auth-panel">
+    <h1>Đang xử lý đăng nhập LinkedIn</h1>
+    <p class="auth-subtitle">Hệ thống đang xác thực tài khoản LinkedIn và đồng bộ hồ sơ. Vui lòng chờ trong giây lát.</p>
+    <div id="linkedin-callback-status" class="stack-item">Đang khởi tạo phiên xác thực...</div>
+
+    <div id="linkedin-first-role-panel" class="stack-item hidden">
+        <strong>Chon vai tro tai khoan</strong>
+        <p class="hint">Lan dau dang nhap LinkedIn, vui long chon vai tro de hoan tat dang ky.</p>
+        <label>Vai tro
+            <select id="linkedin-first-role-select">
+                <option value="">Chon vai tro</option>
+                <option value="candidate">Ung vien</option>
+                <option value="recruiter">HR (Nha tuyen dung)</option>
+            </select>
+        </label>
+        <div class="inline-actions">
+            <button id="linkedin-first-role-submit" type="button" class="primary-btn">Hoan tat dang ky</button>
+            <button id="linkedin-first-role-cancel" type="button" class="ghost-btn">Huy</button>
+        </div>
+    </div>
+
+    <p class="auth-footer"><a href="/login">Quay lại trang đăng nhập</a></p>
+</section>
+{% endblock %}

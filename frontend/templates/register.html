@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="panel auth-panel">
+    <h1>Chào mừng bạn đến với TopCV</h1>
+    <p class="auth-subtitle">Tạo tài khoản bằng email hoặc chọn đăng ký nhanh qua Gmail hoặc LinkedIn.</p>
+
+    <form id="register-form" class="stack-form">
+        <label>Vai trò tài khoản
+            <select name="role" required>
+                <option value="" selected disabled>Chọn vai trò</option>
+                <option value="candidate">Ứng viên</option>
+                <option value="recruiter">HR (Nhà tuyển dụng)</option>
+            </select>
+        </label>
+
+        <label>Họ và tên
+            <input type="text" name="full_name" required>
+        </label>
+        <label>Email
+            <input type="email" name="email" required>
+        </label>
+        <label>Mật khẩu
+            <input type="password" name="password" minlength="8" required>
+        </label>
+        <label>Xác nhận mật khẩu
+            <input type="password" name="confirm_password" minlength="8" required>
+        </label>
+
+        <label class="check-row">
+            <input type="checkbox" name="terms" required>
+            <span>Tôi đã đọc và đồng ý với Điều khoản dịch vụ và Chính sách bảo mật</span>
+        </label>
+
+        <button type="submit" class="primary-btn">Đăng ký</button>
+    </form>
+
+    <div class="auth-divider"><span>Hoặc đăng ký bằng</span></div>
+    <div class="social-grid">
+        <button type="button" class="social-btn social-google" data-social-provider="google" data-social-mode="register">Google (Gmail)</button>
+        <button type="button" class="social-btn social-linkedin" data-social-provider="linkedin" data-social-mode="register">LinkedIn</button>
+    </div>
+
+    <p class="auth-footer">Bạn đã có tài khoản? <a href="/login">Đăng nhập ngay</a></p>
+</section>
+{% endblock %}

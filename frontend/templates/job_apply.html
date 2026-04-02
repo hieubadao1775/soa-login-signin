@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+<section id="job-apply-page" class="panel narrow" data-job-id="{{ job_id }}">
+    <h1>Nộp hồ sơ ứng tuyển</h1>
+    <p class="auth-subtitle">Điền đầy đủ thông tin bên dưới để gửi hồ sơ trực tiếp đến HR đã đăng công việc này.</p>
+
+    <div id="job-apply-info" class="stack-item">
+        Đang tải thông tin công việc...
+    </div>
+
+    <form id="job-apply-form" class="stack-form" enctype="multipart/form-data">
+        <input id="apply-job-id" type="hidden" name="job_id" value="{{ job_id }}">
+
+        <label>Chọn CV đã lưu (khuyến nghị)
+            <select id="apply-cv-id" name="cv_id">
+                <option value="">Đang tải danh sách CV...</option>
+            </select>
+        </label>
+
+        <label>Hoặc tải CV mới ngay lúc nộp (PDF, DOC, DOCX)
+            <input id="apply-resume-file" type="file" name="resume_file" accept=".pdf,.doc,.docx">
+        </label>
+
+        <label>Tiêu đề cho CV mới (nếu tải file)
+            <input id="apply-cv-title" type="text" name="cv_title" placeholder="Ví dụ: CV nộp vị trí Backend Engineer">
+        </label>
+
+        <label>Thư giới thiệu
+            <textarea id="apply-cover-letter" name="cover_letter" rows="6" placeholder="Giới thiệu ngắn gọn lý do bạn phù hợp vị trí này"></textarea>
+        </label>
+
+        <div class="inline-actions">
+            <button id="submit-apply-btn" type="submit" class="primary-btn">Gửi hồ sơ</button>
+            <a class="ghost-btn" href="/">Quay lại danh sách job</a>
+        </div>
+    </form>
+</section>
+{% endblock %}

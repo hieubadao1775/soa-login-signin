@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="panel auth-panel">
+    <h1>Dang xu ly dang nhap Google</h1>
+    <p class="auth-subtitle">He thong dang xac thuc tai khoan Google va dong bo ho so. Vui long cho trong giay lat.</p>
+    <div id="google-callback-status" class="stack-item">Dang khoi tao phien xac thuc...</div>
+
+    <div id="google-first-role-panel" class="stack-item hidden">
+        <strong>Chon vai tro tai khoan</strong>
+        <p class="hint">Lan dau dang nhap Google, vui long chon vai tro de hoan tat dang ky.</p>
+        <label>Vai tro
+            <select id="google-first-role-select">
+                <option value="">Chon vai tro</option>
+                <option value="candidate">Ung vien</option>
+                <option value="recruiter">HR (Nha tuyen dung)</option>
+            </select>
+        </label>
+        <div class="inline-actions">
+            <button id="google-first-role-submit" type="button" class="primary-btn">Hoan tat dang ky</button>
+            <button id="google-first-role-cancel" type="button" class="ghost-btn">Huy</button>
+        </div>
+    </div>
+
+    <p class="auth-footer"><a href="/login">Quay lai trang dang nhap</a></p>
+</section>
+{% endblock %}

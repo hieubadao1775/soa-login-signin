@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Smart Recruitment Platform</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body data-page="{{ page }}">
+    <header class="top-bar">
+        <div class="brand-wrap">
+            <span class="brand-mark"></span>
+            <span class="brand-text">Smart Hiring Hub</span>
+        </div>
+        <nav class="top-nav">
+            <a id="nav-jobs" href="/">Jobs</a>
+            <a id="nav-candidate" href="/candidate" class="hidden">Hồ sơ</a>
+            <a id="nav-candidate-applications" href="/candidate/applications" class="hidden">Đơn ứng tuyển</a>
+            <a id="nav-recruiter" href="/recruiter" class="hidden">HR</a>
+            <span id="nav-role-badge" class="nav-role-badge hidden"></span>
+            <a id="nav-login" href="/login">Đăng nhập</a>
+            <a id="nav-register" href="/register" class="cta-link">Đăng ký</a>
+            <button id="logout-btn" class="ghost-btn hidden" type="button">Đăng xuất</button>
+        </nav>
+    </header>
+
+    <main class="shell">
+        {% block content %}{% endblock %}
+    </main>
+
+    <div id="global-status" class="global-status hidden"></div>
+
+    <script>
+        window.APP_CONFIG = {
+            apiBase: "{{ api_base }}",
+            page: "{{ page }}",
+        };
+    </script>
+    <script src="{{ url_for('static', filename='js/main.js') }}" defer></script>
+</body>
+</html>
